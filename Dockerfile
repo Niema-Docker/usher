@@ -4,14 +4,15 @@ MAINTAINER Niema Moshiri <niemamoshiri@gmail.com>
 
 # install UShER
 RUN apk update && \
-    apk add boost-dev cmake g++ linux-headers protobuf-dev && \
+    apk add cmake gcc g++ linux-headers make musl-dev protobuf-dev && \
     wget -qO- "https://github.com/yatisht/usher/archive/refs/tags/v0.3.5.tar.gz" | tar -zx && \
     cd usher-* && \
-    wget -qO- "https://github.com/oneapi-src/oneTBB/archive/2019_U9.tar.gz " | tar -zx && \
-    mkdir build && \
+    wget -qO- "https://github.com/oneapi-src/oneTBB/archive/refs/tags/v2020.3.tar.gz" | tar -zx && \
+    mkdir -p build && \
     cd build && \
-    cmake -DTBB_DIR=${PWD}/../oneTBB-2019_U9 -DCMAKE_PREFIX_PATH=${PWD}/../oneTBB-2019_U9/cmake .. && \
-    cd ../.. && \
+    cmake -DTBB_DIR=${PWD}/../oneTBB-2020.3 -DCMAKE_PREFIX_PATH=${PWD}/../oneTBB-2020.3/cmake .. && \
+    #TODO
+    cd .. && \
     rm -rf usher-*
     
     # TODO: https://github.com/yatisht/usher/blob/master/installUbuntu.sh
